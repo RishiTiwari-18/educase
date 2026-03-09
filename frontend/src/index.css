@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+.button {
+    @apply w-full font-semibold p-3 rounded-lg
+}
+
+.page {
+    @apply bg-zinc-50 p-4  h-screen w-full max-w-7xl 
+}
+
+.heading {
+    @apply text-3xl font-semibold
+}
+
+.desc {
+    @apply text-zinc-500 font-semibold
+}
+
+.label {
+    @apply absolute left-3 text-xs font-semibold text-[#7a3afe] px-0.5 bg-zinc-50
+}
+
+.input {
+    @apply w-full border border-zinc-500 px-4 py-2 rounded-md mt-2
+}
