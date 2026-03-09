@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { api } from "../lib/axios";
+import { toast } from "react-toastify";
 
 export default function RegisterPage() {
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      setIsSubmitting(true);
+
+      const response = await api.post("/api/auth/register", {
+        name: data.name,
+        number: data.number,
+        email: data.email,
+        company: data.companyname,
+        isagency: data.isagency === "yes",
+        password: data.password,
+      });
+
+      if (response?.data?.success) {
+        toast.success(response?.data?.message || "Account created successfully");
+        navigate("/settings");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Registration failed. Try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -87,6 +113,29 @@ export default function RegisterPage() {
               )}
             </div>
             <div className="relative">
+              <label htmlFor="password" className="label">
+                Password
+              </label>
+              <input
+                type="password"
+                className="input"
+                id="password"
+                placeholder="Enter password"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+              />
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
+            <div className="relative">
               <label htmlFor="companyname" className="label">
                 Company Name
               </label>
@@ -131,8 +180,12 @@ export default function RegisterPage() {
               )}
             </div>
           </div>
-          <button className="button  text-white bg-[#6c25ff] mb-4">
-            Login
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="button text-white bg-[#6c25ff] mb-4 disabled:opacity-60"
+          >
+            {isSubmitting ? "Creating account..." : "Create Account"}
           </button>
         </form>
       </div>

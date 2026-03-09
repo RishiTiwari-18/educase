@@ -2,6 +2,17 @@ const jwt = require("jsonwebtoken")
 const userModel = require("../models/user.model")
 const bcrypt = require("bcrypt")
 
+const getCookieOptions = () => {
+    const isProduction = process.env.NODE_ENV === "production"
+
+    return {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+    }
+}
+
 const loginController = async (req, res) => {
     try {
         const { email, password } = req.body
@@ -26,11 +37,7 @@ const loginController = async (req, res) => {
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: "30d"})
 
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 30 * 24 * 60 * 60 * 1000
-        });
+        res.cookie("token", token, getCookieOptions());
 
         return res.status(200).json({
             success: true,
@@ -68,11 +75,7 @@ const registerController = async (req, res) => {
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: "30d"})
 
-        res.cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 30 * 24 * 60 * 60 * 1000
-        });
+        res.cookie("token", token, getCookieOptions());
 
         return res.status(201).json({
             success: true,
