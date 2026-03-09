@@ -40,7 +40,7 @@ export default function RegisterPage() {
 
   return (
     <div className="page flex justify-center">
-      <div className="space-y-6 mt-4 h-full flex flex-col">
+      <div className="space-y-6 mt-4 min-h-full w-full flex flex-col">
         <div>
           <h1 className="heading">Create your PopX account</h1>
         </div>

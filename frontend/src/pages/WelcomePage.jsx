@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function WelcomePage() {
   return (
     <div className="page flex justify-center items-end ">
-      <div className="space-y-8">
+      <div className="space-y-8 w-full">
         <div className="space-y-3 ">
           <h1 className="heading">Welcome to PopX</h1>
           <p className="desc">

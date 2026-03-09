@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SettingsPage({ user }) {
   return (
-    <div className="bg-zinc-100 h-screen w-full">
+    <div className="page p-0 overflow-hidden">
       <div className="px-3 bg-white py-5">
         <p className="desc">Account Settings</p>
       </div>

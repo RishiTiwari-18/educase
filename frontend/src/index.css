@@ -1,15 +1,25 @@
 @import "tailwindcss";
 
+html,
+body,
+#root {
+    @apply min-h-screen;
+}
+
+body {
+    @apply bg-zinc-100;
+}
+
 .button {
     @apply w-full font-semibold p-3 rounded-lg
 }
 
 .page {
-    @apply bg-zinc-50 p-4  h-screen w-full max-w-7xl 
+    @apply bg-zinc-50 p-4 min-h-screen w-full md:min-h-[92vh] md:max-w-md md:mx-auto md:my-6 md:rounded-2xl md:shadow-lg
 }
 
 .heading {
-    @apply text-3xl font-semibold
+    @apply text-3xl md:text-4xl font-semibold
 }
 
 .desc {

@@ -33,7 +33,7 @@ export default function LoginPage() {
 
   return (
       <div className="page flex justify-center">
-        <div className="space-y-6 mt-4">
+        <div className="space-y-6 mt-4 w-full">
           <div className="space-y-2">
             <h1 className="heading">Signin to your PopX account</h1>
             <p className="desc">
