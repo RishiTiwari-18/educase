@@ -51,7 +51,7 @@ const loginController = async (req, res) => {
 
 const registerController = async (req, res) => {
     try {
-        const {email, name, password, isagency, company} = req.body
+        const {email, name, password, number, isagency, company} = req.body
 
         const isUserAlreadyExist = await userModel.exists({email})
 
@@ -64,7 +64,7 @@ const registerController = async (req, res) => {
 
         const hashPassword = await bcrypt.hash(password, 10)
 
-        const user = await userModel.create({email, name, password:hashPassword, isagency, company})
+        const user = await userModel.create({email, name, password:hashPassword, isagency, company, number})
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: "30d"})
 
