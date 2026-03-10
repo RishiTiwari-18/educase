@@ -22,6 +22,10 @@ app.use(cors({
     }
 }))
 
+app.get("/health", (req, res) => {
+  res.status(200).send("Server is alive");
+});
+
 
 app.use("/api/auth", authRouter)
 
